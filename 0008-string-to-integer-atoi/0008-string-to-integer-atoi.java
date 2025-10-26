@@ -1,0 +1,30 @@
+class Solution {
+    public int myAtoi(String s) {
+        // 1. Remove leading whitespaces
+        s = s.trim();
+        if (s.length() == 0) return 0;
+
+        int i = 0;
+        int sign = 1;
+        long num = 0; // Use long to detect overflow
+
+        // 2. Check for sign
+        if (s.charAt(i) == '+' || s.charAt(i) == '-') {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
+            i++;
+        }
+
+        // 3. Read digits
+        while (i < s.length() && Character.isDigit(s.charAt(i))) {
+            num = num * 10 + (s.charAt(i) - '0');
+
+            // 4. Handle overflow
+            if (sign * num > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            if (sign * num < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+
+            i++;
+        }
+
+        return (int)(sign * num);
+    }
+}
