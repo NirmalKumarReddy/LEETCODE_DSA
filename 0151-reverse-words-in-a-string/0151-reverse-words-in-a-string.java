@@ -1,0 +1,22 @@
+class Solution {
+    public String reverseWords(String s) {
+        StringBuilder res = new StringBuilder();
+        int i = s.length() - 1;
+
+        while (i >= 0) {
+            // skip trailing/multiple spaces
+            while (i >= 0 && s.charAt(i) == ' ') i--;
+            if (i < 0) break;
+
+            int end = i;
+            // find start of word
+            while (i >= 0 && s.charAt(i) != ' ') i--;
+            // word is [i+1, end]
+            res.append(s, i + 1, end + 1).append(' ');
+        }
+
+        // remove last space if any
+        if (res.length() > 0) res.setLength(res.length() - 1);
+        return res.toString();
+    }
+}
